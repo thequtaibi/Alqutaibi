@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>شجرة عائلة القطيبي</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <meta name="theme-color" content="#f8f9fa" id="meta-theme">
+</head>
+<body>
+  <!-- Login Screen -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-card">
+      <img src="logo.png" alt="شعار العائلة" class="login-logo">
+      <h2 class="login-title">شجرة عائلة القطيبي</h2>
+      <p class="login-subtitle">سجّل دخولك للاطلاع على الشجرة</p>
+      <form id="login-form" autocomplete="off">
+        <div class="login-field">
+          <label for="login-user">البريد الإلكتروني</label>
+          <input type="email" id="login-user" placeholder="أدخل البريد" required autocomplete="username">
+        </div>
+        <div class="login-field">
+          <label for="login-pass">كلمة المرور</label>
+          <div class="pass-wrap">
+            <input type="password" id="login-pass" placeholder="أدخل كلمة المرور" required autocomplete="current-password">
+            <button type="button" class="pass-toggle" id="pass-toggle" tabindex="-1">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="login-error hidden" id="login-error">البريد أو كلمة المرور غير صحيحة</div>
+        <button type="submit" class="login-btn" id="login-btn">
+          <span id="login-btn-text">تسجيل الدخول</span>
+          <div class="login-spinner hidden" id="login-spinner"></div>
+        </button>
+      </form>
+      <div class="login-footer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>محمي بتشفير AES-256</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-screen hidden" id="loading-screen">
+    <div class="loading-content">
+      <img src="logo.png" alt="شعار العائلة" class="loading-logo">
+      <h2>شجرة عائلة القطيبي</h2>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-right">
+      <div class="logo">
+        <img src="logo.png" alt="شعار العائلة" class="logo-img">
+        <div>
+          <h1>شجرة عائلة القطيبي</h1>
+          <span class="subtitle" id="subtitle"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-center">
+      <div class="search-box" id="search-box">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="ابحث عن فرد..." autocomplete="off">
+        <kbd>/</kbd>
+      </div>
+      <div class="search-results hidden" id="search-results"></div>
+    </div>
+
+    <div class="header-left">
+      <!-- Mobile search toggle -->
+      <button class="hbtn mobile-only" id="btn-mobile-search" title="بحث">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="hbtn" id="btn-expand" title="توسيع الكل">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <span>توسيع</span>
+      </button>
+      <button class="hbtn" id="btn-collapse" title="طي الكل">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M4 6h16M4 18h16"/></svg>
+        <span>طي</span>
+      </button>
+      <button class="hbtn" id="btn-fullscreen" title="شاشة كاملة">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <span>شاشة كاملة</span>
+      </button>
+      <button class="hbtn" id="btn-dark" title="الوضع الليلي">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <span id="dark-label">ليلي</span>
+      </button>
+      <button class="hbtn" id="btn-logout" title="تسجيل خروج">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        <span>خروج</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Search Bar (hidden by default) -->
+  <div class="mobile-search-bar hidden" id="mobile-search-bar">
+    <div class="mobile-search-inner">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="mobile-search-input" placeholder="ابحث عن فرد..." autocomplete="off">
+      <button class="mobile-search-close" id="mobile-search-close">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Zoom Controls -->
+  <div class="zoom-panel">
+    <button class="zbtn" id="btn-zin" title="تكبير">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <span class="zlabel" id="zoom-label">100%</span>
+    <button class="zbtn" id="btn-zout" title="تصغير">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+    <div class="zsep"></div>
+    <button class="zbtn" id="btn-fit" title="ملائمة العرض">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+    </button>
+    <button class="zbtn" id="btn-reset" title="إعادة ضبط">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9M3 3v6h6"/></svg>
+    </button>
+  </div>
+
+  <!-- Main SVG Tree -->
+  <div class="tree-viewport" id="tree-viewport">
+    <svg id="tree-svg" width="100%" height="100%"></svg>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip hidden" id="tooltip"></div>
+
+  <!-- Person Modal -->
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <button class="modal-nav-btn" id="modal-prev" title="السابق">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <button class="modal-close" id="modal-close" title="إغلاق">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button class="modal-nav-btn" id="modal-next" title="التالي">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="auth_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
